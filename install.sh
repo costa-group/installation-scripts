@@ -1,11 +1,9 @@
 #! /bin/bash
-
+rm -rf ~/tmp/
 #-------------------------------------------------------
 CFG=./default.cfg
-TMPEI="/tmp/install-ei"
-#TO-DO: change path to a Variable
-EIPATH="/home/friker/tmp/Systems/easyinterface"
-
+TMP="/tmp/installer"
+TMPEI=$TMP"/ei"
 
 install_easyinterface ()
 {
@@ -13,9 +11,28 @@ install_easyinterface ()
 
 
     echo "Moving config files..."
-    cp ./easyinterface/eiserver.cfg $TMPEI/config/eiserver.cfg
-    cp -RT $TMPEI/ $EIPATH/server/
-    echo "Done!"
+    cp ./easyinterface/eiserver.cfg $TMPEI/config/eiserver.cfg || return -1
+    cp -RT $TMPEI/ $EIPATH/server/ || return -1
+    return 0
+}
+
+config_install ()
+{
+
+    if [ $TOOL_LOCAL == "yes" ] ; then
+	echo "TO-DO: local installation"
+	return -1
+    else
+	mkdir -p $TMP/$tool || return -1
+	wget $TOOL_REMOTE -P $TMP/$tool/ || return -1
+	if [ "${TOOL_REMOTE##*.}" == "zip"] ; then 
+	    unzip $TMP/$tool/*.zip  $TMP/$tool/|| return -1
+	    rm -f $TMP/$tool/*.zip || return -1
+	fi
+	mkdir -p $TOOL_STATIC_PATH || return -1
+	cp -R $TMP/$tool/* $TOOL_STATIC_PATH/ || return -1
+    fi
+    return 0
 }
 
 install_tool ()
@@ -26,7 +43,7 @@ install_tool ()
 	return -1
     fi
     if [ -e $tool/install.sh ]; then
-	# if own script exists then execute it
+	# if an script exists then execute it
 	chmod +x $tool/install.sh
 	$tool/install.sh || return -1
 	chmod -x $tool/install.sh
@@ -36,9 +53,11 @@ install_tool ()
 	. $tool/config || return -1
 	chmod -x $tool/config
 	#TO-DO: use variables of config to install
+	config_install || return -1
     else
 	return -1
     fi
+    return 0
 }
 #-------------------------------------------------------
 
@@ -62,12 +81,15 @@ else
 fi
 
 #----------------------------------------------------
+mkdir -p $TMP
 if [ $INSTALL_EI == "yes" ] ; then
     echo "Init EasyInterface files..."
     rm -rf $TMPEI
-    mkdir $TMPEI
+
+    mkdir -p $TMPEI
     mkdir $TMPEI/config
     mkdir $TMPEI/bin
+    mkdir -p $EIPATH
     echo "<apps>" > $TMPEI/config/apps.cfg
     echo "<examples>" > $TMPEI/config/examples.cfg
 fi
@@ -77,8 +99,8 @@ fi
 
 for tool in ${INSTALL_TOOLS[@]} ; do
     install_tool $tool
-    if [ $? != 0 ]; then 
-	echo "Impossible to install "$tool
+    if [ $? != 0 ]; then
+	echo "Error: Impossible to install "$tool >&2
 	continue
     fi
 
