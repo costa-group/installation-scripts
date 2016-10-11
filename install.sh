@@ -48,7 +48,6 @@ config_install ()
 {
     if [ $TOOL_LOCAL == "yes" ] ; then
 	echo "TO-DO: local installation"
-	return -1
     else
 	mkdir -p $TMP/$tool || return -1
 	wget $TOOL_REMOTE -P $TMP/$tool/  >& /dev/null || return -1
