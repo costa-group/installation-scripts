@@ -39,6 +39,7 @@ Alias /examples \"$EXAMPLES_PATH\"\n\
 
     cp ./easyinterface/eiserver.cfg $TMPEI/config/eiserver.cfg || return -1
     cp -RT $TMPEI/ $EI_PATH/server/ || return -1
+    cp ./easyinterface/webclient.cfg $EI_PATH/clients/web/webclient.cfg || return -1
     chmod +x -R $EI_PATH/server/bin/*
     return 0
 }

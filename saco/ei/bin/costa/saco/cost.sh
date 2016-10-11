@@ -20,7 +20,6 @@ fi
 # Execute costabs, we add '-ei_version 2' to the parameters since now
 # saco's output uses the old easy interface language
 #
-echo $@
 ${PROGRAM} $@ -ei_version 2 &> /tmp/costabs.stderr
 
 # If costabs exit with exit-code 0 we just print the output to the

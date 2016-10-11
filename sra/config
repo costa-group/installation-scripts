@@ -14,3 +14,4 @@ TOOL_LOCAL_PATH="/home/$USER/tmp/Systems/sra/src/bin"
 TOOL_REMOTE="http://costa.ls.fi.upm.es/download/sra.colab.zip"
 TOOL_STATIC_PATH="/home/$USER/tmp/Systems/sra/bin"
 
+TOOL_HOME="/home/$USER/tmp/Systems/sra"
