@@ -1,0 +1,15 @@
+# $TOOL_LOCAL:
+#
+# yes =>
+#    you must have a copy of the source at the folder
+#    $TOOL_LOCAL_PATH
+# otherwise =>
+#    $TOOL_REMOTE will be download and placed
+#    at $TOOL_STATIC_PATH
+#
+#
+TOOL_LOCAL="no" 
+TOOL_PATH="/home/$USER/tmp/Systems/apet"
+
+TOOL_REMOTE="http://costa.ls.fi.upm.es/download/apet.colab.zip"
+

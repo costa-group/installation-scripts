@@ -1,6 +1,6 @@
 #! /bin/bash
-rm -rf ~/tmp/
-rm -rf /tmp/installer
+#rm -rf ~/tmp/
+#rm -rf /tmp/installer
 #-------------------------------------------------------
 CFG=./default.cfg
 TMP="/tmp/installer"
@@ -153,7 +153,7 @@ done
 
 if [ $INSTALL_EI == "yes" ] ; then
     install_easyinterface
-    echo -e "Please configure: \n\
+    echo -e "Please review configuration at: \n\
    $EI_PATH/server/bin/common_settings.sh "
     echo -e "Please Execute: \n\
    sudo mv $TMP/easyinterface-site.conf /etc/apache2/sites-available/easyinterface-site.conf && sudo a2ensite easyinterface-site && sudo service apache2 reload "
