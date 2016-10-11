@@ -1,0 +1,10 @@
+
+# Path to saco --- where you've extracted   
+#
+#   http://costa.ls.fi.upm.es/download/saco.colab.zip
+#
+
+EC_SACOHOME="/home/${USER}/Systems/costa/costabs/dist/saco"
+export SACOHOME=${EC_SACOHOME}
+export COSTABSHOME=${SACOHOME}
+export PATH=${PATH}:${SACOHOME}/bin

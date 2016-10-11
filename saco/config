@@ -9,8 +9,8 @@
 #
 #
 TOOL_LOCAL="no" 
-TOOL_LOCAL_PATH="/home/$USER/tmp/Systems/saco/src/bin"
+#TOOL_PATH="/home/$USER/tmp/Systems/saco/src"
 
 TOOL_REMOTE="http://costa.ls.fi.upm.es/download/saco.colab.zip"
-TOOL_STATIC_PATH="/home/$USER/tmp/Systems/saco/bin"
+TOOL_PATH="/home/$USER/tmp/Systems/saco"
 

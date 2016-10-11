@@ -1,0 +1,4 @@
+<app id="cost" src="./costa/saco/cost.cfg" />
+<app id="mhp" src="./costa/saco/mhp.cfg" />
+<app id="deadlock" src="./costa/saco/deadlock.cfg" />
+
