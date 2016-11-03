@@ -9,7 +9,7 @@
 #
 #
 TOOL_LOCAL="no" 
-TOOL_PATH="/home/$USER/tmp/Systems/apet"
 
 TOOL_REMOTE="http://costa.ls.fi.upm.es/download/apet.colab.zip"
+TOOL_PATH="tools/apet"
 

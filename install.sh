@@ -10,21 +10,21 @@ install_easyinterface ()
 {
     echo "Installing EasyInterface..."
     echo "   Cloning repositories..."
-    git clone https://github.com/costa-group/benchmarks.git $EXAMPLES_PATH >& /dev/null \
-	&& chmod -R 755 $EXAMPLES_PATH \
-	&& git clone https://github.com/abstools/easyinterface.git $EI_PATH >& /dev/null \
-	&& chmod -R 755 $EI_PATH \
-	&& echo -e "Alias /eiauto \"$EI_PATH\"\n\
+    git clone https://github.com/costa-group/benchmarks.git $EXAMPLES_FULLPATH >& /dev/null \
+	&& chmod -R 755 $EXAMPLES_FULLPATH \
+	&& git clone https://github.com/abstools/easyinterface.git $EI_FULLPATH >& /dev/null \
+	&& chmod -R 755 $EI_FULLPATH \
+	&& echo -e "Alias /eiauto \"$EI_FULLPATH\"\n\
 \n\
-<Directory \"$EI_PATH\">\n\
+<Directory \"$EI_FULLPATH\">\n\
    Options FollowSymlinks MultiViews Indexes IncludesNoExec\n\
    AllowOverride All\n\
    Require all granted\n\
 </Directory>\n\
 \n\
-Alias /examples \"$EXAMPLES_PATH\"\n\
+Alias /examples \"$EXAMPLES_FULLPATH\"\n\
 \n\
-<Directory \"$EXAMPLES_PATH\">\n\
+<Directory \"$EXAMPLES_FULLPATH\">\n\
    Options FollowSymlinks MultiViews Indexes IncludesNoExec\n\
    AllowOverride All\n\
    Require all granted\n\
@@ -38,9 +38,9 @@ Alias /examples \"$EXAMPLES_PATH\"\n\
     echo "</examples>" >> $TMPEI/config/examples.cfg
 
     cp ./easyinterface/eiserver.cfg $TMPEI/config/eiserver.cfg || return -1
-    cp -RT $TMPEI/ $EI_PATH/server/ || return -1
-    cp ./easyinterface/webclient.cfg $EI_PATH/clients/web/webclient.cfg || return -1
-    chmod +x -R $EI_PATH/server/bin/*
+    cp -RT $TMPEI/ $EI_FULLPATH/server/ || return -1
+    cp ./easyinterface/webclient.cfg $EI_FULLPATH/clients/web/webclient.cfg || return -1
+    chmod +x -R $EI_FULLPATH/server/bin/*
     return 0
 }
 
@@ -55,8 +55,8 @@ config_install ()
 	    unzip $TMP/$tool/*.zip -d $TMP/ >& /dev/null|| return -1
 	    rm -f $TMP/$tool/*.zip || return -1
 	fi
-	mkdir -p $TOOL_PATH || return -1
-	cp -R $TMP/$tool/* $TOOL_PATH || return -1
+	mkdir -p $TOOL_FULLPATH || return -1
+	cp -R $TMP/$tool/* $TOOL_FULLPATH || return -1
     fi
     return 0
 }
@@ -86,10 +86,11 @@ install_tool ()
     else
 	return -1
     fi
+    TOOL_FULLPATH=$BASE_PATH/$TOOL_PATH
     if [[ $INSTALL_EI == "yes" && -e $tool/ei/ ]] ; then
 	echo "  The tool $tool supports EasyInterface"
 	cat $tool/ei/app >> $TMPEI/config/apps.cfg
-	$tool/ei/common_config.sh $TOOL_PATH >> $TMPEI/bin/misc/common_settings.sh
+	$tool/ei/common_config.sh $TOOL_FULLPATH >> $TMPEI/bin/misc/common_settings.sh
 	cp -R $tool/ei/config/*  $TMPEI/config/
 	cp -R $tool/ei/bin/*     $TMPEI/bin/
     fi
@@ -117,6 +118,15 @@ else
     exit -1
 fi
 
+if [ $BASE_PATH ] ; then
+    $BASE_PATH
+else
+    read -p "`echo -e '\nEnter an installation directory:\n>' `" -i "$HOME/costa-tools/" -e path
+fi
+EI_FULLPATH=$BASE_PATH/$EI_PATH
+EXAMPLES_FULLPATH=$BASE_PATH/$EXAMPLES_PATH
+exit 0
+
 #----------------------------------------------------
 mkdir -p $TMP
 if [ $INSTALL_EI == "yes" ] ; then
@@ -125,7 +135,7 @@ if [ $INSTALL_EI == "yes" ] ; then
     mkdir $TMPEI/config
     mkdir $TMPEI/bin
     mkdir $TMPEI/bin/misc
-    mkdir -p $EI_PATH
+    mkdir -p $EI_FULLPATH
     cat ./easyinterface/common_settings.sh > $TMPEI/bin/misc/common_settings.sh
     chmod +x $TMPEI/bin/misc/common_settings.sh
     echo "<apps>" > $TMPEI/config/apps.cfg

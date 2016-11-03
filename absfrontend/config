@@ -10,7 +10,7 @@
 #
 
 TOOL_LOCAL="no" 
-TOOL_PATH="/home/$USER/tmp/Systems/absfrontend"
 
 TOOL_REMOTE="http://costa.ls.fi.upm.es/download/absfrontend.jar"
+TOOL_PATH="tools/absfrontend"
 
