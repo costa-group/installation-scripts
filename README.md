@@ -12,13 +12,14 @@ INSTALL_EI="yes"
 #if you install easyinterface => absfrontend is required!!
 INSTALL_TOOLS=( "absfrontend" "saco" "apet" )
 
-EI_PATH="/home/$USER/tmp/Systems/easyinterface"
-EXAMPLES_PATH="/home/$USER/tmp/Systems/benchmarks"
+EI_PATH="ei"
+EXAMPLES_PATH="benchmarks"
 ```
 It has few variables defined:
 <ul>
 <li> <b>INSTALL_EI</b> : "yes" or "no". Select if you want to install easyinterface. </li>
 <li> <b>INSTALL_TOOLS</b> : a bash array with the name of each tool that you want to install.</li>
+<li> <b>BASE_PATH</b> : full path.</li>
 <li> <b>EI_PATH</b> : where do you want to install easyinterface (In the Future this variable will be moved to easyinterface/config). </li>
 <li> <b>EXAMPLES_PATH</b> : where do you want to download the examples (In the Future this variable will be moved to easyinterface/config). </li>
 </ul>
