@@ -66,7 +66,7 @@ TO-DO
 make
 ```
 
-## How to add new tool
+## How to add a new tool
 <!-- create folder and the install script -->
 <!-- add reference in config -->
 
